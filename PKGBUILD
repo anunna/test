@@ -31,10 +31,6 @@ prepare() {
   cd "$pkgname"
 
   sed -i -e \
-    's/"Install configuration files" OFF/"Install configuration files" ON/' \
-    CMakeLists.txt
-  _ver="$(cat CMakeLists.txt | grep -m3 -e "  VERSION" | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
-  sed -i -e \
     "s|\${CALAMARES_VERSION_MAJOR}.\${CALAMARES_VERSION_MINOR}.\${CALAMARES_VERSION_PATCH}|${_ver}-${pkgrel}|g" \
     CMakeLists.txt
   sed -i -e "s|CALAMARES_VERSION_RC 1|CALAMARES_VERSION_RC 0|g" CMakeLists.txt
@@ -67,3 +63,4 @@ package() {
 
   make DESTDIR="$pkgdir" install
 }
+
