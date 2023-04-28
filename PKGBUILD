@@ -30,6 +30,7 @@ sha512sums=('SKIP')
 prepare() {
   cd "$pkgname"
 
+  _ver="$(cat CMakeLists.txt | grep -m3 -e "  VERSION" | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
   sed -i -e \
     "s|\${CALAMARES_VERSION_MAJOR}.\${CALAMARES_VERSION_MINOR}.\${CALAMARES_VERSION_PATCH}|${_ver}-${pkgrel}|g" \
     CMakeLists.txt
